@@ -115,4 +115,14 @@ def scorefunction(tree,s) :
     for data in s :
         v=tree.evaluate([data[0],data[1]])
         dif+=abs(v-data[2])
-    return dif                
+    return dif
+
+def mutate(t,pc,probchange=0.1) :
+
+    if random() <probchange :
+        return makerandomtree(pc)
+    else :
+        result=deepcopy(t)
+        if isinstance(t,node) :
+            result.children=[mutate(c,pc,probchange) for c in t.children]
+        return result        
