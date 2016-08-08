@@ -125,4 +125,14 @@ def mutate(t,pc,probchange=0.1) :
         result=deepcopy(t)
         if isinstance(t,node) :
             result.children=[mutate(c,pc,probchange) for c in t.children]
-        return result        
+        return result
+
+def crossover(t1,t2,probswap=0.7,top=1) :
+
+    if random()<probswap and not top :
+        return deepcopy(t2)
+    else :
+        result=deepcopy(t1)
+        if isinstance(t1,node) and isinstance(t2,node) :
+            result.children=[crossover(c,choice(t2.children),probswap,0) for c in t1.children]
+        return result
